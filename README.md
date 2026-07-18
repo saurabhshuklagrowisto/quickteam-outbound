@@ -1,8 +1,8 @@
-# QuickTeam Outbound — signal-scored VA staffing pipeline
+# Outbound Command Center — signal-scored VA staffing pipeline
 
-An agentic outbound pipeline + mobile command center for **QuickTeam**: scrape US healthcare-admin job postings, score them for QuickTeam's buyer ICP, gate on company size for free before spending a credit, enrich, write cluster-routed sequences, and hand booked replies to the sales team — with a feedback → learning → **eval-gated** loop that actually closes.
+An agentic outbound pipeline + mobile command center for a healthcare-VA staffing company: scrape US healthcare-admin job postings, score them for the company's buyer ICP, gate on company size for free before spending a credit, enrich, write cluster-routed sequences, and hand booked replies to the sales team — with a feedback → learning → **eval-gated** loop that actually closes.
 
-Built as a demonstrably better rework of the existing `Job_hunter_agentic_AI` ("TalentBridge") dashboard, aligned to QuickTeam's finalized scraping plan v3.
+Built as a demonstrably better rework of the existing `Job_hunter_agentic_AI` ("Old system") dashboard, aligned to the company's finalized scraping plan v3.
 
 ---
 
@@ -10,12 +10,12 @@ Built as a demonstrably better rework of the existing `Job_hunter_agentic_AI` ("
 
 On the **61 real human-rated postings** exported from the old dashboard:
 
-| | Old TalentBridge AI | **QuickTeam scorer v1** |
+| | Old Old system AI | **Re-oriented scorer v1** |
 |---|---|---|
 | Agreement with human gold | 67.2% | **77.0%** |
 | Leads thrown away (false-disqualify) | **20 (33%)** | **4 (6.6%)** |
 
-The old AI scores against a **job-seeker** objective — it disqualifies postings that "require US work authorization." But QuickTeam is a **staffing seller**: those US practices hiring junior admin roles *are the customers*. Re-orienting the objective from the 61 corrections recovers 16 of the 20 wrongly-discarded leads. The remaining 4 are what the feedback-learning loop targets next (toward the 90% eval-gate target).
+The old AI scores against a **job-seeker** objective — it disqualifies postings that "require US work authorization." But the business is a **staffing seller**: those US practices hiring junior admin roles *are the customers*. Re-orienting the objective from the 61 corrections recovers 16 of the 20 wrongly-discarded leads. The remaining 4 are what the feedback-learning loop targets next (toward the 90% eval-gate target).
 
 Run it yourself: `python lib/eval/eval_holdout.py --baseline` vs `python lib/eval/eval_holdout.py`.
 
@@ -36,7 +36,7 @@ _Credit where due: the old repo's prompt-injection sanitization, DRY_RUN + suppr
 ```
 web/                 mobile-first dashboard (DRY-RUN demo, runs on seed data, deploys as static)
 lib/scoring/rubric.config.json   SINGLE SOURCE OF TRUTH — weights, flags, caps, gate, clusters
-pipeline/score.py    the one config-driven scorer (re-oriented for QuickTeam)
+pipeline/score.py    the one config-driven scorer (re-oriented for the company)
 pipeline/scrape.py   JobSpy scraper (Indeed live; LinkedIn actor; free boards)
 lib/eval/            the eval harness (agreement % + false-disqualify on the 61-entry holdout)
 eval/holdout/        the 61 human-rated postings (frozen truth set)
